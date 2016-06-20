@@ -115,6 +115,11 @@
             <UserLocale>en-GB</UserLocale>
             <SystemLocale>en-GB</SystemLocale>
         </component>
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            	<ComputerName>nicecomputername</ComputerName>
+            	<TimeZone>W. Europe Standard Time</TimeZone>
+		<ProductKey>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</ProductKey>
+        </component>
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <OOBE>
                 <HideEULAPage>true</HideEULAPage>
@@ -122,6 +127,20 @@
                 <ProtectYourPC>1</ProtectYourPC>
                 <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
             </OOBE>
+			<FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <CommandLine>cscript //B "%windir%\system32\slmgr.vbs" /skms kmsserverdnsname:1688</CommandLine>
+                </SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <CommandLine>cscript //B "%windir%\system32\slmgr.vbs" /ato</CommandLine>
+                </SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <CommandLine>netsh advfirewall firewall add rule name="KMS" dir=out action=allow protocol=TCP remoteport=1668</CommandLine>
+                </SynchronousCommand>
+            </FirstLogonCommands>
             <DisableAutoDaylightTimeSet>false</DisableAutoDaylightTimeSet>
             <UserAccounts>
                 <LocalAccounts>
